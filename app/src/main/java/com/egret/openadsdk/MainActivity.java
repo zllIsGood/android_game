@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
             return;
         }
 
-        nativeAndroid.config.showFPS = true;
+        nativeAndroid.config.showFPS = false;
         nativeAndroid.config.fpsLogTime = 30;
         nativeAndroid.config.disableNativeRender = false;
         nativeAndroid.config.clearCache = false;
@@ -84,38 +84,38 @@ public class MainActivity extends Activity {
         // 以获取更好的广告推荐效果，如read_phone_state,防止获取不了imei时候，下载类广告没有填充的问题。
         TTAdManagerHolder.get().requestPermissionIfNecessary(this);
 
-//        try {
-//            //获取设备id
-//            //TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-//            final TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-//
-//            WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-//                // TODO: Consider calling
-//                //    ActivityCompat#requestPermissions
-//                // here to request the missing permissions, and then overriding
-//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                //                                          int[] grantResults)
-//                // to handle the case where the user grants the permission. See the documentation
-//                // for ActivityCompat#requestPermissions for more details.
-//                DeviceID = wm.getConnectionInfo().getMacAddress();
-//                if (DeviceID!=null) return;;
-//            }
-//            DeviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-//            if (DeviceID!=null) return;;
-//            if(manager.getDeviceId() == null || manager.getDeviceId().equals("")) {
-//                if (Build.VERSION.SDK_INT >= 23) {
-//                    DeviceID = manager.getDeviceId(0);
-//                    if (DeviceID!=null) return;;
-//                }
-//            }else{
-//                DeviceID = manager.getDeviceId();
-//            }
-//            //DeviceID = TelephonyMgr.getDeviceId();
-//        }
-//        catch(Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            //获取设备id
+            //TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            final TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+            WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                DeviceID = wm.getConnectionInfo().getMacAddress();
+                if (DeviceID!=null) return;;
+            }
+            DeviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+            if (DeviceID!=null) return;;
+            if(manager.getDeviceId() == null || manager.getDeviceId().equals("")) {
+                if (Build.VERSION.SDK_INT >= 23) {
+                    DeviceID = manager.getDeviceId(0);
+                    if (DeviceID!=null) return;;
+                }
+            }else{
+                DeviceID = manager.getDeviceId();
+            }
+            //DeviceID = TelephonyMgr.getDeviceId();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -309,7 +309,7 @@ public class MainActivity extends Activity {
         AdSlot adSlot = new AdSlot.Builder()
                 .setCodeId(codeId) //广告位id
                 .setSupportDeepLink(true)
-//                .setImageAcceptedSize(600, 257)
+//                .setImageAcceptedSize(600, 150)
                 .setImageAcceptedSize(width,height)
                 .build();
         //step5:请求广告，对请求回调的广告作渲染处理

@@ -9,12 +9,12 @@ public class AdCode {
     public  static  int InteractionAd = 105;
     public  static  int DeviceID = 106;
 
-    public static String splash_code = "801121648";
+    public static String splash_code = "887318134";//"801121648";
     public static String reward_horizontal_code= "901121430";
-    public static String reward_vertical_code = "901121365";
+    public static String reward_vertical_code = "945150617";//"901121365";
     public static String full_horizontal_code = "901121184";
     public static String full_vertical_code = "901121375";
-    public static String banner_code = "901121895";
+    public static String banner_code = "945150616";//"901121895";
     public static String interaction_code = "901121725";
 
 }
