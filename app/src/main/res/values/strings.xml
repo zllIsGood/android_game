@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">egret-openadsdk</string>
+    <string name="app_name">单词喵</string>
     <string name="i">i</string>
     <string name="show_fullscreen_video">展示全屏视频广告</string>
     <string name="load_vertical_fullscreen_video">加载竖版全屏视频广告</string>

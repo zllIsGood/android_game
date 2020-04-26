@@ -482,6 +482,7 @@ public class MainActivity extends Activity {
 //                Log.i(TAG, "点击: ");
                 //用户选择不喜欢原因后，移除广告展示
                 mBannerContainer.removeView(bannerView);
+                bannerView = null;
             }
 
             @Override
