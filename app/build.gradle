@@ -37,6 +37,5 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
     implementation "com.android.support:support-annotations:27.1.1"
     implementation "com.android.support:support-v4:26.0.1"
-    implementation 'com.android.support:design:26.1.0'
-    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'com.google.code.gson:gson:2.6.2'
 }

@@ -61,11 +61,6 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".sdk.BannerExpressActivity"
-            android:configChanges="keyboard|orientation|screenSize"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".sdk.RewardVideoActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait" />

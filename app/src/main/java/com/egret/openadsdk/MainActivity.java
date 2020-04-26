@@ -20,15 +20,17 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.bytedance.sdk.openadsdk.AdSlot;
+import com.bytedance.sdk.openadsdk.FilterWord;
+import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.bytedance.sdk.openadsdk.TTAdDislike;
 import com.bytedance.sdk.openadsdk.TTAdNative;
+import com.bytedance.sdk.openadsdk.TTAppDownloadListener;
 import com.bytedance.sdk.openadsdk.TTBannerAd;
 import com.bytedance.sdk.openadsdk.TTInteractionAd;
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd;
 import com.egret.openadsdk.sdk.AdCode;
-//import com.egret.openadsdk.sdk.BannerExpressActivity;
-import com.egret.openadsdk.sdk.BannerExpressActivity;
 import com.egret.openadsdk.sdk.DeviceActivity;
+import com.egret.openadsdk.sdk.DislikeDialog;
 import com.egret.openadsdk.sdk.FullScreenVideoActivity;
 import com.egret.openadsdk.sdk.RewardVideoActivity;
 import com.egret.openadsdk.sdk.SplashActivity;
@@ -42,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+
 //Android项目发布设置详见doc目录下的README_ANDROID.md
 
 public class MainActivity extends Activity {
@@ -129,8 +132,20 @@ public class MainActivity extends Activity {
             @Override
             public void callback(String dataFromJs) {
                 MainActivity.jsEvent(AdCode.DeviceID, DeviceID);
-//                MainActivity.jsEvent(AdCode.DeviceID, "id=1");
 //                Log.d(TAG, DeviceID);
+            }
+        });
+
+        //监听来自js的关闭广告请求
+        nativeAndroid.setExternalInterface("TTCloseBannerAd", new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(String message) {
+                String str = "Native get TTCloseBannerAd from Js: ";
+                str += message;
+                Log.d(TAG, str);
+                mBannerContainer.removeView(bannerView);
+                bannerView = null;
+                //nativeAndroid.callExternalInterface("setDeviceCode", DeviceID);
             }
         });
 
@@ -206,11 +221,7 @@ public class MainActivity extends Activity {
                     height = object.getInt("height");
 
 //                    MainActivity.instance.loadBannerAd(code,is_top,width,height );
-//                    MainActivity.instance.loadNewBannerAd(code,is_top,width,height );
-                    Intent intent = new Intent(MainActivity.this, BannerExpressActivity.class);
-                    intent.putExtra("splash_code",AdCode.reward_vertical_code);
-                    intent.putExtra("is_express", true);
-                    startActivityForResult(intent, AdCode.OPENADSDK);
+                    MainActivity.instance.loadExpressAd(code,width,height );
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -310,121 +321,182 @@ public class MainActivity extends Activity {
     public  void send2JS(String tag ,String json){
         nativeAndroid.callExternalInterface(tag, json);
     }
+
+    private void loadExpressAd(String codeId, int expressViewWidth, int expressViewHeight) {
+
+        //step4:创建广告请求参数AdSlot,具体参数含义参考文档
+        AdSlot adSlot = new AdSlot.Builder()
+                .setCodeId(codeId) //广告位id
+                .setSupportDeepLink(true)
+                .setAdCount(3) //请求广告数量为1到3条
+                .setExpressViewAcceptedSize(expressViewWidth, 60) //期望模板广告view的size,单位dp
+                .build();
+        //step5:请求广告，对请求回调的广告作渲染处理
+        mTTAdNative.loadBannerExpressAd(adSlot, new TTAdNative.NativeExpressAdListener() {
+            @Override
+            public void onError(int code, String message) {
+                TToast.show(MainActivity.this, "load error : " + code + ", " + message);
+                if(bannerView!=null){
+                    mBannerContainer.removeView(bannerView);
+                    bannerView = null;
+                }
+                JsonObject json = new JsonObject();
+                json.addProperty("event","onError" );
+                MainActivity.jsEvent(AdCode.BannerExpressAd,json.toString());
+                //mExpressContainer.removeAllViews();
+            }
+
+            @Override
+            public void onNativeExpressAdLoad(List<TTNativeExpressAd> ads) {
+                if (ads == null || ads.size() == 0) {
+                    return;
+                }
+                mTTAd = ads.get(0);
+                mTTAd.setSlideIntervalTime(1000);
+                bindAdListener(mTTAd);
+                startTime = System.currentTimeMillis();
+                mTTAd.render();
+            }
+        });
+    }
     private TTNativeExpressAd mTTAd;
-//    private void loadNewBannerAd(String codeId, final boolean isTop, final int width, final int height) {
-//        //step4:创建广告请求参数AdSlot,具体参数含义参考文档
-//        AdSlot adSlot = new AdSlot.Builder()
-//                .setCodeId(codeId) //广告位id
-//                .setSupportDeepLink(true)
-////                .setImageAcceptedSize(600, 150)
-////                .setImageAcceptedSize(width,height)
-//                .setAdCount(1) //请求广告数量为1到3条
-//                .setExpressViewAcceptedSize(width, height) //期望模板广告view的size,单位dp
-//                .build();
-//        //step5:请求广告，对请求回调的广告作渲染处理
-//        mTTAdNative.loadBannerExpressAd(adSlot, new TTAdNative.NativeExpressAdListener() {
-//            @Override
-//            public void onError(int code, String message) {
-//                TToast.show(MainActivity.this, "load error : " + code + ", " + message);
-//                if(bannerView!=null){
-//                    mBannerContainer.removeView(bannerView);
-//                }
-//                JsonObject json = new JsonObject();
-//                json.addProperty("event","onError" );
-//                MainActivity.jsEvent(AdCode.BannerExpressAd,json.toString());
-//            }
-//
-//            @Override
-//            public void onNativeExpressAdLoad(List<TTNativeExpressAd> ads) {
-//                Log.i(TAG, "onNativeExpressAdLoad:1 ");
-//                Log.i(TAG, String.valueOf(ads));
-//                mTTAd = ads.get(0);
-//                Log.i(TAG, String.valueOf(mTTAd));
-//                if (mTTAd == null) {
-//                    return;
-//                }
-//                if(bannerView!=null){
-//                    mBannerContainer.removeView(bannerView);
-//                    bannerView = null;
-//                }
-//                mTTAd.render();
-////                bannerView = mTTAd.getBannerView();
-////                if (bannerView == null) {
-////                    return;
-////                }
-//                Rect rect = new Rect();
-//                getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
-//                FrameLayout.LayoutParams params =  new FrameLayout.LayoutParams(rect.width(), (int)((((double)height)/((double) width))*rect.width()));
-//                if(!isTop){
-//                    params.gravity = Gravity.BOTTOM;
-//                }else{
-//                    params.gravity = Gravity.TOP;
-//                }
-////                bannerView.setLayoutParams(params);
-//
-//                //设置轮播的时间间隔  间隔在30s到120秒之间的值，不设置默认不轮播
-//                mTTAd.setSlideIntervalTime(30 * 1000);
-////                mBannerContainer.addView(bannerView);
-//                //设置广告互动监听回调
-//                mTTAd.setExpressInteractionListener(new TTNativeExpressAd.ExpressAdInteractionListener() {
-//                    @Override
-//                    public void onAdClicked(View view, int type) {
-//                        TToast.show(MainActivity.this, "广告被点击");
-//                        JsonObject json = new JsonObject();
-//                        json.addProperty("event","onAdClicked" );
-//                        MainActivity.jsEvent(AdCode.BannerExpressAd,json.toString());
-//                    }
-//
-//                    @Override
-//                    public void onAdShow(View view, int type) {
-//                        TToast.show(MainActivity.this, "广告展示");
-//                        JsonObject json = new JsonObject();
-//                        json.addProperty("event","onAdShow" );
-//                        MainActivity.jsEvent(AdCode.BannerExpressAd,json.toString());
-//                    }
-//
-//                    @Override
-//                    public void onRenderFail(View view, String s, int i) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onRenderSuccess(View view, float v, float v1) {
-//
-//                    }
-//                });
-//                //在banner中显示网盟提供的dislike icon，有助于广告投放精准度提升
-////                mTTAd.setShowDislikeIcon(new TTAdDislike.DislikeInteractionCallback() {
-////                    @Override
-////                    public void onSelected(int position, String value) {
-////                        TToast.show(MainActivity.this, "点击 " + value);
-////                        JsonObject json = new JsonObject();
-////                        json.addProperty("event","onSelected" );
-////                        json.addProperty("value",value);
-////                        MainActivity.jsEvent(AdCode.BannerExpressAd,json.toString());
-////                        //用户选择不喜欢原因后，移除广告展示
-//////                        mBannerContainer.removeAllViews();
-////                        if(bannerView!=null){
-////                            mBannerContainer.removeView(bannerView);
-////                            bannerView = null;
-////                        }
-////                    }
-////
-////                    @Override
-////                    public void onCancel() {
-////                        TToast.show(MainActivity.this, "点击取消 ");
-////                        JsonObject json = new JsonObject();
-////                        json.addProperty("event","onCancel" );
-////                        MainActivity.jsEvent(AdCode.BannerExpressAd,json.toString());
-////                    }
-////                });
-//
-//
-//            }
-//        });
-//    }
+    private long startTime = 0;
+    private boolean mHasShowDownloadActive = false;
+    private void bindAdListener(TTNativeExpressAd ad) {
+
+        ad.setExpressInteractionListener(new TTNativeExpressAd.ExpressAdInteractionListener() {
+            @Override
+            public void onAdClicked(View view, int type) {
+                TToast.show(MainActivity.this, "广告被点击");
+            }
+
+            @Override
+            public void onAdShow(View view, int type) {
+                TToast.show(MainActivity.this, "广告展示");
+            }
+
+            @Override
+            public void onRenderFail(View view, String msg, int code) {
+                Log.e("ExpressView", "render fail:" + (System.currentTimeMillis() - startTime));
+                TToast.show(MainActivity.this, msg + " code:" + code);
+            }
+
+            @Override
+            public void onRenderSuccess(View view, float width, float height) {
+                Log.e("ExpressView", "render suc:" + (System.currentTimeMillis() - startTime));
+                //返回view的宽高 单位 dp
+                TToast.show(MainActivity.this, "渲染成功");
+                mBannerContainer.removeView(view);
+                bannerView = view;
+                Rect rect = new Rect();
+                getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+                FrameLayout.LayoutParams params =  new FrameLayout.LayoutParams(rect.width(), (int)((((double)height)/((double) width))*rect.width()));
+                params.gravity = Gravity.BOTTOM;
+                bannerView.setLayoutParams(params);
+
+                mBannerContainer.addView(bannerView);
+            }
+        });
+        //dislike设置
+        bindDislike(ad, false);
+
+
+
+        if (ad.getInteractionType() != TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
+            return;
+        }
+        ad.setDownloadListener(new TTAppDownloadListener() {
+            @Override
+            public void onIdle() {
+//                AlertDialog alertDialog1 = new AlertDialog.Builder(MainActivity.this)
+//                        .setTitle("下载测试")//标题
+//                        .setMessage(DeviceID)//内容
+//                        .create();
+//                alertDialog1.show();
+                TToast.show(MainActivity.this, "点击开始下载", Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void onDownloadActive(long totalBytes, long currBytes, String fileName, String appName) {
+                if (!mHasShowDownloadActive) {
+                    mHasShowDownloadActive = true;
+                    TToast.show(MainActivity.this, "下载中，点击暂停", Toast.LENGTH_LONG);
+                }
+            }
+
+            @Override
+            public void onDownloadPaused(long totalBytes, long currBytes, String fileName, String appName) {
+                TToast.show(MainActivity.this, "下载暂停，点击继续", Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void onDownloadFailed(long totalBytes, long currBytes, String fileName, String appName) {
+                TToast.show(MainActivity.this, "下载失败，点击重新下载", Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void onInstalled(String fileName, String appName) {
+                TToast.show(MainActivity.this, "安装完成，点击图片打开", Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void onDownloadFinished(long totalBytes, String fileName, String appName) {
+                TToast.show(MainActivity.this, "点击安装", Toast.LENGTH_LONG);
+            }
+        });
+    }
+
+
+    /**
+     * 设置广告的不喜欢, 注意：强烈建议设置该逻辑，如果不设置dislike处理逻辑，则模板广告中的 dislike区域不响应dislike事件。
+     *
+     * @param ad
+     * @param customStyle 是否自定义样式，true:样式自定义
+     */
+    private void bindDislike(TTNativeExpressAd ad, boolean customStyle) {
+        if (customStyle) {
+            //使用自定义样式
+            List<FilterWord> words = ad.getFilterWords();
+            if (words == null || words.isEmpty()) {
+                return;
+            }
+
+            final DislikeDialog dislikeDialog = new DislikeDialog(this, words);
+            dislikeDialog.setOnDislikeItemClick(new DislikeDialog.OnDislikeItemClick() {
+                @Override
+                public void onItemClick(FilterWord filterWord) {
+                    //屏蔽广告
+                    TToast.show(MainActivity.this, "点击 " + filterWord.getName());
+                    //用户选择不喜欢原因后，移除广告展示
+                    mBannerContainer.removeView(bannerView);
+                    bannerView = null;
+                }
+            });
+            ad.setDislikeDialog(dislikeDialog);
+            return;
+        }
+        //使用默认模板中默认dislike弹出样式
+        ad.setDislikeCallback(MainActivity.this, new TTAdDislike.DislikeInteractionCallback() {
+            @Override
+            public void onSelected(int position, String value) {
+//                Log.i(TAG, "点击: ");
+                //用户选择不喜欢原因后，移除广告展示
+                mBannerContainer.removeView(bannerView);
+            }
+
+            @Override
+            public void onCancel() {
+                TToast.show(MainActivity.this, "点击取消 ");
+            }
+        });
+
+
+
+    }
+
     private void loadBannerAd(String codeId, final boolean isTop, final int width, final int height) {
         //step4:创建广告请求参数AdSlot,具体参数含义参考文档
+
         AdSlot adSlot = new AdSlot.Builder()
                 .setCodeId(codeId) //广告位id
                 .setSupportDeepLink(true)
@@ -433,6 +505,7 @@ public class MainActivity extends Activity {
                 .build();
         //step5:请求广告，对请求回调的广告作渲染处理
         mTTAdNative.loadBannerAd(adSlot, new TTAdNative.BannerAdListener() {
+
             @Override
             public void onError(int code, String message) {
                 TToast.show(MainActivity.this, "load error : " + code + ", " + message);
