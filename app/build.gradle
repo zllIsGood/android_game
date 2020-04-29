@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'walle'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -51,5 +51,32 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
     implementation "com.android.support:support-annotations:28.0.0"
     implementation "com.android.support:support-v4:28.0.0"
-    compile 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.umeng.umsdk:analytics:8.0.0'
+    implementation 'com.umeng.umsdk:common:2.0.0'
+    //渠道包打包神器
+    implementation 'com.meituan.android.walle:library:1.1.6'
+
+    //基础组件库依赖(必须)
+    implementation 'com.umeng.umsdk:utdid:1.5.2'
+}
+
+//打包命令  ./gradlew clean assembleReleaseChannels
+/*walle {
+    // 指定渠道包的输出路径
+    //apkOutputFolder = new File("D:\\zmkj\\draw_android\\outputs\\channels");
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = '${appName}-${channel}-v${versionName}-${versionCode}-${buildTime}.apk';
+    // 渠道配置文件
+    //channelFile = new File("D:\\zmkj\\draw_android\\channel")
+}*/
+
+//打包命令  ./gradlew clean assembleReleaseChannels
+walle {
+    // 指定渠道包的输出路径
+    apkOutputFolder = new File("/Users/bill/android/zumeng/word_ad_android/outputs/channels");
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = '${appName}-${channel}-v${versionName}-${versionCode}-${buildTime}.apk';
+    // 渠道配置文件
+    channelFile = new File("/Users/bill/android/zumeng/word_ad_android/channel")
 }
