@@ -62,16 +62,17 @@ dependencies {
 }
 
 //打包命令  ./gradlew clean assembleReleaseChannels
-/*walle {
+walle {
     // 指定渠道包的输出路径
-    //apkOutputFolder = new File("D:\\zmkj\\draw_android\\outputs\\channels");
+    apkOutputFolder = new File("E:\\zll\\project\\word_ad_android\\outputs\\channels");
     // 定制渠道包的APK的文件名称
     apkFileNameFormat = '${appName}-${channel}-v${versionName}-${versionCode}-${buildTime}.apk';
     // 渠道配置文件
-    //channelFile = new File("D:\\zmkj\\draw_android\\channel")
-}*/
+    channelFile = new File("E:\\zll\\project\\word_ad_android\\channel")
+}
 
 //打包命令  ./gradlew clean assembleReleaseChannels
+/*
 walle {
     // 指定渠道包的输出路径
     apkOutputFolder = new File("/Users/bill/android/zumeng/word_ad_android/outputs/channels");
@@ -79,4 +80,4 @@ walle {
     apkFileNameFormat = '${appName}-${channel}-v${versionName}-${versionCode}-${buildTime}.apk';
     // 渠道配置文件
     channelFile = new File("/Users/bill/android/zumeng/word_ad_android/channel")
-}
+}*/
