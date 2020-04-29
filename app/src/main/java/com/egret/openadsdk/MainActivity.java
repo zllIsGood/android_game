@@ -105,8 +105,8 @@ public class MainActivity extends Activity {
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                DeviceID = wm.getConnectionInfo().getMacAddress();
-                if (DeviceID!=null) return;;
+//                DeviceID = wm.getConnectionInfo().getMacAddress();
+//                if (DeviceID!=null) return;;
             }
             DeviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
             if (DeviceID!=null) return;;
