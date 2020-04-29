@@ -1068,7 +1068,7 @@ window.skins=window.skins||{};
 	__extends(EnergyAdSkin, _super);
 	function EnergyAdSkin() {
 		_super.call(this);
-		this.skinParts = ["bg","closeBtn","btn","count"];
+		this.skinParts = ["bg","titleImg","closeBtn","btn","lab","count"];
 		
 		this.height = 1334;
 		this.width = 750;
@@ -1091,7 +1091,7 @@ window.skins=window.skins||{};
 		t.horizontalCenter = 0;
 		t.verticalCenter = -7;
 		t.width = 669;
-		t.elementsContent = [this.bg_i(),this._Image1_i(),this.closeBtn_i(),this.btn_i(),this._Label1_i(),this.count_i()];
+		t.elementsContent = [this.bg_i(),this.titleImg_i(),this._Image1_i(),this.closeBtn_i(),this.btn_i(),this.lab_i(),this.count_i()];
 		return t;
 	};
 	_proto.bg_i = function () {
@@ -1100,6 +1100,14 @@ window.skins=window.skins||{};
 		t.source = "energy_ad_bg_png";
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto.titleImg_i = function () {
+		var t = new eui.Image();
+		this.titleImg = t;
+		t.source = "energy_ad_title_png";
+		t.x = 114;
+		t.y = 59;
 		return t;
 	};
 	_proto._Image1_i = function () {
@@ -1131,8 +1139,9 @@ window.skins=window.skins||{};
 		t.skinName = "Btn2Skin";
 		return t;
 	};
-	_proto._Label1_i = function () {
+	_proto.lab_i = function () {
 		var t = new eui.Label();
+		this.lab = t;
 		t.bold = true;
 		t.horizontalCenter = 0;
 		t.lineSpacing = 6;

@@ -382,11 +382,6 @@
 			"name": "dialog_close_btn_png"
 		},
 		{
-			"url": "assets/images/energy_ad_bg.png",
-			"type": "image",
-			"name": "energy_ad_bg_png"
-		},
-		{
 			"url": "assets/images/energy_bar_0.png",
 			"type": "image",
 			"name": "energy_bar_0_png"
@@ -870,6 +865,31 @@
 			"url": "assets/images/search_icon.png",
 			"type": "image",
 			"name": "search_icon_png"
+		},
+		{
+			"url": "assets/energy/energy_ad_bg.png",
+			"type": "image",
+			"name": "energy_ad_bg_png"
+		},
+		{
+			"url": "assets/energy/energy_ad_title.png",
+			"type": "image",
+			"name": "energy_ad_title_png"
+		},
+		{
+			"url": "assets/energy/energy_score_btn.png",
+			"type": "image",
+			"name": "energy_score_btn_png"
+		},
+		{
+			"url": "assets/energy/energy_score_title.png",
+			"type": "image",
+			"name": "energy_score_title_png"
+		},
+		{
+			"url": "assets/energy/energy_score_get.png",
+			"type": "image",
+			"name": "energy_score_get_png"
 		}
 	]
 }
