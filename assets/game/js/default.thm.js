@@ -1594,10 +1594,7 @@ window.skins=window.skins||{};
 		var t = new eui.Image();
 		this.img = t;
 		t.horizontalCenter = 0;
-		t.scaleX = 0.2;
-		t.scaleY = 0.2;
-		t.x = 10;
-		t.y = 20;
+		t.y = 15;
 		return t;
 	};
 	_proto._Image2_i = function () {
@@ -2024,8 +2021,6 @@ window.skins=window.skins||{};
 		var t = new eui.Image();
 		this.imgHero = t;
 		t.horizontalCenter = 0;
-		t.scaleX = 0.2;
-		t.scaleY = 0.2;
 		t.source = "";
 		t.verticalCenter = 0;
 		t.x = 10;
@@ -2074,12 +2069,9 @@ window.skins=window.skins||{};
 	_proto.imgHero_i = function () {
 		var t = new eui.Image();
 		this.imgHero = t;
-		t.horizontalCenter = -15;
-		t.scaleX = 0.2;
-		t.scaleY = 0.2;
+		t.horizontalCenter = -10;
 		t.source = "";
 		t.verticalCenter = -15;
-		t.x = 10;
 		return t;
 	};
 	_proto.energyNum_i = function () {
@@ -2261,7 +2253,7 @@ window.skins=window.skins||{};
 		_super.call(this);
 		this.skinParts = ["role1","role2","role3"];
 		
-		this.height = 250;
+		this.height = 230;
 		this.width = 140;
 		this.elementsContent = [this.role1_i(),this.role2_i(),this.role3_i()];
 	}
@@ -2272,23 +2264,17 @@ window.skins=window.skins||{};
 		this.role1 = t;
 		t.anchorOffsetY = 0;
 		t.horizontalCenter = 0;
-		t.scaleX = 0.2;
-		t.scaleY = 0.2;
 		t.source = "";
-		t.y = 150;
+		t.y = 0;
 		return t;
 	};
 	_proto.role2_i = function () {
 		var t = new eui.Image();
 		this.role2 = t;
-		t.anchorOffsetX = 400;
-		t.anchorOffsetY = 699;
 		t.rotation = 0;
-		t.scaleX = 0.2;
-		t.scaleY = 0.2;
 		t.source = "";
 		t.x = 70;
-		t.y = 154;
+		t.y = 0;
 		return t;
 	};
 	_proto.role3_i = function () {
@@ -2296,10 +2282,8 @@ window.skins=window.skins||{};
 		this.role3 = t;
 		t.horizontalCenter = 0;
 		t.rotation = 0;
-		t.scaleX = 0.2;
-		t.scaleY = 0.2;
 		t.source = "";
-		t.y = 17;
+		t.y = 0;
 		return t;
 	};
 	return RoleItemSkin;
@@ -2374,7 +2358,9 @@ window.skins=window.skins||{};
 	_proto.scrol0_i = function () {
 		var t = new eui.Scroller();
 		this.scrol0 = t;
-		t.height = 382;
+		t.height = 380;
+		t.scrollPolicyH = "on";
+		t.scrollPolicyV = "off";
 		t.width = 750;
 		t.x = 0;
 		t.y = 465;
@@ -2391,21 +2377,21 @@ window.skins=window.skins||{};
 	_proto.heroGrp0_i = function () {
 		var t = new eui.Group();
 		this.heroGrp0 = t;
-		t.height = 250;
+		t.height = 230;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.x = 0;
-		t.y = 0;
+		t.y = 20;
 		return t;
 	};
 	_proto.heroGrp1_i = function () {
 		var t = new eui.Group();
 		this.heroGrp1 = t;
-		t.height = 250;
+		t.height = 230;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.x = 0;
-		t.y = 132;
+		t.y = 150;
 		return t;
 	};
 	_proto.role_i = function () {

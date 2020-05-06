@@ -890,6 +890,21 @@
 			"url": "assets/energy/energy_score_get.png",
 			"type": "image",
 			"name": "energy_score_get_png"
+		},
+		{
+			"url": "assets/energy/score_search.png",
+			"type": "image",
+			"name": "score_search_png"
+		},
+		{
+			"url": "assets/energy/tip_btn_score.png",
+			"type": "image",
+			"name": "tip_btn_score_png"
+		},
+		{
+			"url": "assets/public/radiobutton_select.png",
+			"type": "image",
+			"name": "radiobutton_select_png"
 		}
 	]
 }
