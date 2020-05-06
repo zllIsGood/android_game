@@ -54,11 +54,11 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".sdk.RewardVideoActivity"
@@ -72,11 +72,11 @@
             android:name=".sdk.SplashActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
     </activity>
 
         <provider
