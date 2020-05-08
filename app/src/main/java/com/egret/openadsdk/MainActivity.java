@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -133,6 +134,17 @@ public class MainActivity extends Activity {
             public void callback(String dataFromJs) {
                 MainActivity.jsEvent(AdCode.DeviceID, DeviceID);
 //                Log.d(TAG, DeviceID);
+            }
+        });
+
+        //监听来自JS的url
+        nativeAndroid.setExternalInterface("TTOpenURL", new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(String url) {
+                Log.d(TAG,"open_url:"+ url);
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
 
