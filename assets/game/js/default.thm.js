@@ -313,7 +313,6 @@ window.skins=window.skins||{};
 		this.states = [
 			new eui.State ("up",
 				[
-					new eui.SetProperty("_Image1","verticalCenter",0),
 					new eui.SetProperty("_Image2","visible",false),
 					new eui.SetProperty("labelDisplay","textAlign","left"),
 					new eui.SetProperty("labelDisplay","x",50)
@@ -321,12 +320,10 @@ window.skins=window.skins||{};
 			,
 			new eui.State ("down",
 				[
-					new eui.SetProperty("_Image1","verticalCenter",0)
 				])
 			,
 			new eui.State ("disabled",
 				[
-					new eui.SetProperty("_Image1","verticalCenter",0)
 				])
 		];
 	}
@@ -334,10 +331,9 @@ window.skins=window.skins||{};
 
 	_proto._Image1_i = function () {
 		var t = new eui.Image();
-		this._Image1 = t;
-		t.height = 30;
+		t.horizontalCenter = 0;
 		t.source = "checkbox_unselect_png";
-		t.width = 30;
+		t.verticalCenter = 0;
 		return t;
 	};
 	_proto._Image2_i = function () {
@@ -1557,34 +1553,36 @@ window.skins=window.skins||{};
 	__extends(HeroItemSkin, _super);
 	function HeroItemSkin() {
 		_super.call(this);
-		this.skinParts = ["img","lab","checkbox","lab0"];
+		this.skinParts = ["bg","img","red","lab","checkbox","lab0","grp0","img1","img3","lab1","grp1","img2","lab2","grp2"];
 		
 		this.currentState = "nor";
 		this.height = 326;
 		this.width = 180;
-		this.elementsContent = [this._Image1_i(),this.img_i(),this._Image2_i(),this.lab_i(),this.checkbox_i(),this.lab0_i()];
+		this.elementsContent = [this.bg_i(),this.img_i(),this.red_i(),this._Image1_i(),this.lab_i(),this.grp0_i(),this.grp1_i(),this.grp2_i()];
 		this.states = [
 			new eui.State ("nor",
 				[
-					new eui.SetProperty("lab","verticalCenter",54),
-					new eui.SetProperty("checkbox","x",40)
+					new eui.SetProperty("lab","verticalCenter",54)
 				])
 			,
 			new eui.State ("mini",
 				[
-					new eui.SetProperty("_Image2","x",-55),
-					new eui.SetProperty("_Image2","y",4),
+					new eui.SetProperty("red","visible",false),
+					new eui.SetProperty("_Image1","x",-55),
+					new eui.SetProperty("_Image1","y",4),
 					new eui.SetProperty("lab","x",-41),
 					new eui.SetProperty("lab","verticalCenter",-110),
-					new eui.SetProperty("checkbox","visible",false),
-					new eui.SetProperty("lab0","visible",false)
+					new eui.SetProperty("grp0","visible",false),
+					new eui.SetProperty("grp1","visible",false),
+					new eui.SetProperty("grp2","visible",false)
 				])
 		];
 	}
 	var _proto = HeroItemSkin.prototype;
 
-	_proto._Image1_i = function () {
+	_proto.bg_i = function () {
 		var t = new eui.Image();
+		this.bg = t;
 		t.horizontalCenter = 0;
 		t.source = "character_item_bg_png";
 		t.y = 0;
@@ -1597,9 +1595,17 @@ window.skins=window.skins||{};
 		t.y = 15;
 		return t;
 	};
-	_proto._Image2_i = function () {
+	_proto.red_i = function () {
 		var t = new eui.Image();
-		this._Image2 = t;
+		this.red = t;
+		t.right = -3;
+		t.source = "red_dot_png";
+		t.top = -3;
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		this._Image1 = t;
 		t.source = "character_name_border_png";
 		t.x = 0;
 		t.y = 168;
@@ -1616,23 +1622,99 @@ window.skins=window.skins||{};
 		t.x = 14;
 		return t;
 	};
+	_proto.grp0_i = function () {
+		var t = new eui.Group();
+		this.grp0 = t;
+		t.x = 100;
+		t.y = 281;
+		t.elementsContent = [this.checkbox_i(),this.lab0_i()];
+		return t;
+	};
 	_proto.checkbox_i = function () {
 		var t = new eui.CheckBox();
 		this.checkbox = t;
 		t.skinName = "CheckBox1";
-		t.x = 40;
-		t.y = 282;
+		t.x = 0;
+		t.y = 0;
 		return t;
 	};
 	_proto.lab0_i = function () {
 		var t = new eui.Label();
 		this.lab0 = t;
 		t.bold = true;
-		t.bottom = 20;
 		t.size = 20;
 		t.text = "显示";
 		t.textColor = 0x54251B;
-		t.x = 80;
+		t.x = 35;
+		t.y = 6;
+		return t;
+	};
+	_proto.grp1_i = function () {
+		var t = new eui.Group();
+		this.grp1 = t;
+		t.x = 0;
+		t.y = 280;
+		t.elementsContent = [this.img1_i(),this.img3_i(),this.lab1_i()];
+		return t;
+	};
+	_proto.img1_i = function () {
+		var t = new eui.Image();
+		this.img1 = t;
+		t.source = "hero_rect1_png";
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.img3_i = function () {
+		var t = new eui.Image();
+		this.img3 = t;
+		t.source = "hero_chip_png";
+		t.x = 5;
+		t.y = 4;
+		return t;
+	};
+	_proto.lab1_i = function () {
+		var t = new eui.Label();
+		this.lab1 = t;
+		t.bold = true;
+		t.size = 25;
+		t.text = "0/3";
+		t.textColor = 0x54251B;
+		t.x = 38;
+		t.y = 5;
+		return t;
+	};
+	_proto.grp2_i = function () {
+		var t = new eui.Group();
+		this.grp2 = t;
+		t.anchorOffsetX = 63;
+		t.anchorOffsetY = 15;
+		t.height = 30;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 127;
+		t.x = 111;
+		t.y = 235;
+		t.elementsContent = [this.img2_i(),this.lab2_i()];
+		return t;
+	};
+	_proto.img2_i = function () {
+		var t = new eui.Image();
+		this.img2 = t;
+		t.source = "hero_rect3_png";
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.lab2_i = function () {
+		var t = new eui.Label();
+		this.lab2 = t;
+		t.bold = true;
+		t.size = 23;
+		t.text = "可升级";
+		t.textColor = 0x54251B;
+		t.x = 27;
+		t.y = 5;
 		return t;
 	};
 	return HeroItemSkin;
@@ -1662,8 +1744,8 @@ window.skins=window.skins||{};
 		t.fillAlpha = 1;
 		t.fillColor = 0xCCA56D;
 		t.height = 1;
-		t.right = 20;
 		t.width = 200;
+		t.x = 380;
 		t.y = 14;
 		return t;
 	};
@@ -2231,6 +2313,7 @@ window.skins=window.skins||{};
 		var t = new eui.DataGroup();
 		this.list = t;
 		t.itemRendererSkinName = HeroGroupItemSkin;
+		t.useVirtualLayout = true;
 		t.layout = this._VerticalLayout1_i();
 		t.dataProvider = this._ArrayCollection1_i();
 		return t;
@@ -2254,7 +2337,7 @@ window.skins=window.skins||{};
 		this.skinParts = ["role1","role2","role3"];
 		
 		this.height = 230;
-		this.width = 140;
+		this.width = 150;
 		this.elementsContent = [this.role1_i(),this.role2_i(),this.role3_i()];
 	}
 	var _proto = RoleItemSkin.prototype;
@@ -2273,7 +2356,7 @@ window.skins=window.skins||{};
 		this.role2 = t;
 		t.rotation = 0;
 		t.source = "";
-		t.x = 70;
+		t.x = 75;
 		t.y = 0;
 		return t;
 	};
@@ -2321,7 +2404,7 @@ window.skins=window.skins||{};
 	__extends(HomeSkin, _super);
 	function HomeSkin() {
 		_super.call(this);
-		this.skinParts = ["bg","house","heroGrp0","heroGrp1","heroGrp","scrol0","role","roleJob","energyNum","leftTimeLab","energyBtn","topGrp","playBtn","upgradeBtn","bottomGrp","rankBtn","freeBtn","leftGrp","stageGrp","wordBtn","musicBtn","rightGrp","mainGrp"];
+		this.skinParts = ["bg","house","heroGrp0","heroGrp1","heroGrp","scrol0","role","roleJob","energyNum","leftTimeLab","energyBtn","topGrp","playBtn","upgradeBtn","bottomGrp","rankBtn","freeBtn","setBtn","leftGrp","stageGrp","wordBtn","musicBtn","rightGrp","mainGrp"];
 		
 		this.height = 1334;
 		this.width = 750;
@@ -2398,7 +2481,7 @@ window.skins=window.skins||{};
 		var t = new RoleItem();
 		this.role = t;
 		t.skinName = "RoleItemSkin";
-		t.x = 295;
+		t.x = 305;
 		t.y = 800;
 		return t;
 	};
@@ -2406,7 +2489,7 @@ window.skins=window.skins||{};
 		var t = new RoleJobItem();
 		this.roleJob = t;
 		t.skinName = "RoleJobItemSkin";
-		t.x = 191;
+		t.x = 170;
 		t.y = 832;
 		return t;
 	};
@@ -2503,7 +2586,7 @@ window.skins=window.skins||{};
 		t.width = 120;
 		t.x = 35;
 		t.y = 1027;
-		t.elementsContent = [this.rankBtn_i(),this.freeBtn_i()];
+		t.elementsContent = [this.rankBtn_i(),this.freeBtn_i(),this.setBtn_i()];
 		return t;
 	};
 	_proto.rankBtn_i = function () {
@@ -2525,6 +2608,17 @@ window.skins=window.skins||{};
 		t.skinName = "Btn2Skin";
 		t.x = 0;
 		t.y = 130;
+		return t;
+	};
+	_proto.setBtn_i = function () {
+		var t = new BaseBtn();
+		this.setBtn = t;
+		t.horizontalCenter = 0;
+		t.icon = "index_set_png";
+		t.label = "";
+		t.skinName = "Btn2Skin";
+		t.visible = false;
+		t.y = -130;
 		return t;
 	};
 	_proto.stageGrp_i = function () {
@@ -2603,6 +2697,146 @@ window.skins=window.skins||{};
 	var _proto = NavigationSkin.prototype;
 
 	return NavigationSkin;
+})(eui.Skin);generateEUI.paths['resource/skins/home/SetSkin.exml'] = window.SetSkin = (function (_super) {
+	__extends(SetSkin, _super);
+	function SetSkin() {
+		_super.call(this);
+		this.skinParts = ["bg","set_about","verLab","closeBtn","userProto","priviteProto","protoGrp"];
+		
+		this.height = 1334;
+		this.width = 750;
+		this.elementsContent = [this._Rect1_i(),this._Group1_i()];
+	}
+	var _proto = SetSkin.prototype;
+
+	_proto._Rect1_i = function () {
+		var t = new eui.Rect();
+		t.bottom = 0;
+		t.fillAlpha = 0.6;
+		t.left = 0;
+		t.right = 0;
+		t.top = 0;
+		return t;
+	};
+	_proto._Group1_i = function () {
+		var t = new eui.Group();
+		t.height = 696;
+		t.horizontalCenter = 0;
+		t.verticalCenter = 0;
+		t.width = 687;
+		t.elementsContent = [this.bg_i(),this._Image1_i(),this._Image2_i(),this.set_about_i(),this._Label1_i(),this.verLab_i(),this._Label2_i(),this.closeBtn_i(),this.protoGrp_i()];
+		return t;
+	};
+	_proto.bg_i = function () {
+		var t = new eui.Image();
+		this.bg = t;
+		t.height = 696;
+		t.scale9Grid = new egret.Rectangle(85,115,517,691);
+		t.source = "query_word_dialog_bg_png";
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0;
+		t.source = "app_icon_png";
+		t.y = 75;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.height = 98;
+		t.scale9Grid = new egret.Rectangle(70,20,425,123);
+		t.source = "energy_dialog_wrapper_png";
+		t.x = 60;
+		t.y = 360;
+		return t;
+	};
+	_proto.set_about_i = function () {
+		var t = new eui.Image();
+		this.set_about = t;
+		t.source = "set_about_png";
+		t.x = 569;
+		t.y = 392;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.horizontalCenter = 0;
+		t.size = 36;
+		t.text = "单词喵";
+		t.textColor = 0x854529;
+		t.y = 269;
+		return t;
+	};
+	_proto.verLab_i = function () {
+		var t = new eui.Label();
+		this.verLab = t;
+		t.horizontalCenter = 0;
+		t.size = 23;
+		t.text = "V1.0";
+		t.textColor = 0xCFBEA1;
+		t.y = 312;
+		return t;
+	};
+	_proto._Label2_i = function () {
+		var t = new eui.Label();
+		t.size = 36;
+		t.text = "关于我们";
+		t.textColor = 0x854529;
+		t.x = 85;
+		t.y = 395;
+		return t;
+	};
+	_proto.closeBtn_i = function () {
+		var t = new BaseBtn();
+		this.closeBtn = t;
+		t.icon = "dialog_close_btn_png";
+		t.label = "";
+		t.right = -9;
+		t.skinName = "Btn2Skin";
+		t.top = -7;
+		return t;
+	};
+	_proto.protoGrp_i = function () {
+		var t = new eui.Group();
+		this.protoGrp = t;
+		t.bottom = 64;
+		t.horizontalCenter = 0;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.userProto_i(),this._Label3_i(),this.priviteProto_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.gap = 10;
+		return t;
+	};
+	_proto.userProto_i = function () {
+		var t = new eui.Label();
+		this.userProto = t;
+		t.size = 36;
+		t.text = "服务协议";
+		t.textColor = 0x0c90d4;
+		return t;
+	};
+	_proto._Label3_i = function () {
+		var t = new eui.Label();
+		t.size = 36;
+		t.text = "|";
+		t.textColor = 0x0c90d4;
+		return t;
+	};
+	_proto.priviteProto_i = function () {
+		var t = new eui.Label();
+		this.priviteProto = t;
+		t.size = 36;
+		t.text = "隐私政策";
+		t.textColor = 0x0c90d4;
+		return t;
+	};
+	return SetSkin;
 })(eui.Skin);generateEUI.paths['resource/skins/loading/LoadingUISkin.exml'] = window.LoadingUISkin = (function (_super) {
 	__extends(LoadingUISkin, _super);
 	function LoadingUISkin() {
@@ -2641,6 +2875,7 @@ window.skins=window.skins||{};
 	_proto.loadingBar_i = function () {
 		var t = new eui.Image();
 		this.loadingBar = t;
+		t.scale9Grid = new egret.Rectangle(67,8,403,21);
 		t.source = "loading_bar1_png";
 		t.width = 537;
 		return t;

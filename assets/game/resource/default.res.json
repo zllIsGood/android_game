@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "energy_bar_btn_png,energy_bar_icon_png,energy_bar_wrapper_png,index_bgm_off_btn_png,index_bgm_on_btn_png,index_energy_btn_png,index_glossary_btn_png,index_play_btn_png,index_rank_btn_png,number_0_png,number_1_png,number_2_png,number_3_png,number_4_png,number_5_png,number_6_png,number_7_png,number_8_png,number_9_png,number_character_png,number_house_png,number_level_png,number_need_png,number_no_png,number_protagonist_png,number_receive_png,upgrade_action_character_png,upgrade_action_house_png,upgrade_action_protagonist_png,index_protagonist_bg_png",
+			"keys": "energy_bar_btn_png,energy_bar_icon_png,energy_bar_wrapper_png,index_bgm_off_btn_png,index_bgm_on_btn_png,index_energy_btn_png,index_glossary_btn_png,index_play_btn_png,index_rank_btn_png,number_0_png,number_1_png,number_2_png,number_3_png,number_4_png,number_5_png,number_6_png,number_7_png,number_8_png,number_9_png,number_character_png,number_house_png,number_level_png,number_need_png,number_no_png,number_protagonist_png,number_receive_png,upgrade_action_character_png,upgrade_action_house_png,upgrade_action_protagonist_png,index_protagonist_bg_png,index_set_png",
 			"name": "main"
 		},
 		{
@@ -905,6 +905,46 @@
 			"url": "assets/public/radiobutton_select.png",
 			"type": "image",
 			"name": "radiobutton_select_png"
+		},
+		{
+			"url": "assets/main/index_set.png",
+			"type": "image",
+			"name": "index_set_png"
+		},
+		{
+			"url": "assets/images/app_icon.png",
+			"type": "image",
+			"name": "app_icon_png"
+		},
+		{
+			"url": "assets/images/set_about.png",
+			"type": "image",
+			"name": "set_about_png"
+		},
+		{
+			"url": "assets/hero/hero_chip.png",
+			"type": "image",
+			"name": "hero_chip_png"
+		},
+		{
+			"url": "assets/hero/hero_rect1.png",
+			"type": "image",
+			"name": "hero_rect1_png"
+		},
+		{
+			"url": "assets/hero/hero_rect2.png",
+			"type": "image",
+			"name": "hero_rect2_png"
+		},
+		{
+			"url": "assets/hero/hero_rect3.png",
+			"type": "image",
+			"name": "hero_rect3_png"
+		},
+		{
+			"url": "assets/hero/hero_uplv_bg.png",
+			"type": "image",
+			"name": "hero_uplv_bg_png"
 		}
 	]
 }

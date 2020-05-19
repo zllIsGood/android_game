@@ -55,6 +55,7 @@
 		"resource/skins/role/RoleJobItemSkin.exml",
 		"resource/skins/home/HomeSkin.exml",
 		"resource/skins/home/NavigationSkin.exml",
+		"resource/skins/home/SetSkin.exml",
 		"resource/skins/loading/LoadingUISkin.exml",
 		"resource/skins/loading/LoginAwardSkin.exml",
 		"resource/skins/loading/UserProtoDetialSkin.exml",
